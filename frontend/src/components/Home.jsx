@@ -1,13 +1,13 @@
 import React from 'react'
 import Header from './Header'
 import Footer from './Footer'
-import Cart from './Cart'
+import Shop from './Shop'
 
 const Home = () => {
   return (
     <>
     <Header/>
-    <Cart/>
+    <Shop/>
     <Footer/>
     </>
   )

@@ -1,0 +1,66 @@
+[
+    {
+        "productname": "Ergonomic Cotton Shirt",
+        "price": 33.61,
+        "discount": 5,
+        "panelcolor": "#ff5733",
+        "bgcolor": "#d4e157",
+        "textcolor": "#f06292"
+    },
+    {
+        "productname": "Incredible Granite Pants",
+        "price": 75.89,
+        "discount": 10,
+        "panelcolor": "#33ff57",
+        "bgcolor": "#f06292",
+        "textcolor": "#d4e157"
+    },
+    {
+        "productname": "Rustic Rubber Gloves",
+        "price": 22.47,
+        "discount": 3,
+        "panelcolor": "#5733ff",
+        "bgcolor": "#ffeb3b",
+        "textcolor": "#03a9f4"
+    },
+    {
+        "productname": "Sleek Wooden Table",
+        "price": 154.33,
+        "discount": 15,
+        "panelcolor": "#ff33a1",
+        "bgcolor": "#8e44ad",
+        "textcolor": "#3498db"
+    },
+    {
+        "productname": "Fantastic Plastic Shoes",
+        "price": 48.99,
+        "discount": 8,
+        "panelcolor": "#33a1ff",
+        "bgcolor": "#e74c3c",
+        "textcolor": "#2ecc71"
+    },
+    {
+        "productname": "Small Metal Hat",
+        "price": 12.59,
+        "discount": 2,
+        "panelcolor": "#ff5733",
+        "bgcolor": "#1abc9c",
+        "textcolor": "#e74c3c"
+    },
+    {
+        "productname": "Awesome Concrete Tuna",
+        "price": 98.77,
+        "discount": 12,
+        "panelcolor": "#ff33a1",
+        "bgcolor": "#c0392b",
+        "textcolor": "#8e44ad"
+    },
+    {
+        "productname": "Gorgeous Soft Ball",
+        "price": 16.99,
+        "discount": 4,
+        "panelcolor": "#5733ff",
+        "bgcolor": "#2980b9",
+        "textcolor": "#f39c12"
+    }
+]
