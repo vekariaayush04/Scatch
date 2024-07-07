@@ -1,28 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import ProductCard from './ui/ProductCard';
-import axios from 'axios';
+import Products from './ui/Products';
 
 
 const Shop = () => {
-  const [productdata, setProductdata] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${import.meta.env.VITE_APP_BASE_URI}/product/allproducts`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
-        setProductdata(response.data);
-      } catch (error) {
-        console.error('Error fetching product data:', error);
-      }
-    };
-    fetchData();
-  }, []); // dependency array to avoid multiple calls
-
+  
   return (
     <>
       <div className='w-screen flex'>
@@ -48,18 +30,7 @@ const Shop = () => {
             <Link to="/discount">Discount</Link>
           </div>
         </div>
-        <div className='flex-1 h-[35rem] overflow-y-auto flex flex-wrap justify-evenly'>
-          {productdata.map((product, index) => (
-            <ProductCard
-              key={index}
-              title={product.productname}
-              price={product.price}
-              panelcolor={product.panelcolor}
-              bgcolor={product.bgcolor}
-              textcolor={product.textcolor}
-            />
-          ))}
-        </div>
+        <Products/>
       </div>
     </>
   );

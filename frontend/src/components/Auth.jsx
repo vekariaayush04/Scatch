@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -52,9 +52,21 @@ const Auth = () => {
             }}/>
             <br />
             <Button1 title={"Create My Account"} onClick={async ()=>{
-              const data = await axios.post("http://localhost:3000/v1/user/auth/signup",signupData)
-              console.log(data);
-              toast(data.data.message);              
+              try {
+                const response = await axios.post("http://localhost:3000/v1/user/auth/signup", signupData);
+                toast(response.data.message,{
+                  onClose: () => {
+                    window.location.reload();
+                  }
+                });
+                // Reload the page after successful signup
+              } catch (error) {
+                toast.error("Signup failed",{
+                  onClose: () => {
+                    window.location.reload();
+                  }
+                });
+              }
             }}/>
             <ToastContainer/>
           </div>
@@ -78,10 +90,18 @@ const Auth = () => {
             }}/>
           <br />
           <Button1 title={'Login'} onClick={async ()=>{
-              const data = await axios.post("http://localhost:3000/v1/user/auth/login",loginData)
-              console.log(data);
-              localStorage.setItem("token",data.data.token)
-              navigate('/user/home');           
+              try {
+                const data = await axios.post("http://localhost:3000/v1/user/auth/login",loginData)
+                console.log(data);
+                localStorage.setItem("token",data.data.token)
+                navigate('/user/home');  
+              } catch (error) {
+                toast.error("Login failed",{
+                  onClose: () => {
+                    window.location.reload();
+                  }
+                });
+              }           
             }} />
           </div>
       </div>
