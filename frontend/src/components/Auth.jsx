@@ -94,7 +94,7 @@ const Auth = () => {
                 const data = await axios.post("http://localhost:3000/v1/user/auth/login",loginData)
                 console.log(data);
                 localStorage.setItem("token",data.data.token)
-                navigate('/user/home');  
+                navigate('/');  
               } catch (error) {
                 toast.error("Login failed",{
                   onClose: () => {

@@ -7,12 +7,14 @@ const productRouter = express.Router();
 
 productRouter.get("/",verifyToken,async (req,res)=>{
     const data = await User.findById(req.userId);
-    res.send("hi from product after login" + data);
+    res.send(data);
 })
 
 productRouter.get("/allproducts",verifyToken,async (req,res) => {
+    const userData = await User.findById(req.userId);
     const products = await Product.find({});
-    res.send(products);
+    console.log(userData);
+    res.send({userData, products});
 })
 
 module.exports = productRouter

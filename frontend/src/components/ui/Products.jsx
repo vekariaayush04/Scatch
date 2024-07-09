@@ -3,12 +3,15 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import ProductCard from './ProductCard'
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { userData } from '../../atoms/UserAtom';
 
 
 
 const Products = () => {
     const navigate = useNavigate();
     const [productdata, setProductdata] = useState([]);
+    const [user, setUser] = useRecoilState(userData);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,7 +21,8 @@ const Products = () => {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         });
-        setProductdata(response.data);
+        setProductdata(response.data.products);
+        setUser(response.data.userData);
       } catch (error) {
         console.error('Error fetching product data:', error);
         navigate("/user/auth")
