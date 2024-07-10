@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import bag from '../../assets/bag.jpg';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
-const ProductCard = ({ title, price, panelcolor, bgcolor, textcolor }) => {
+const ProductCard = ({id , title, price, panelcolor, bgcolor, textcolor }) => {
   const [quantity, setQuantity] = useState(0);
 
   function plusQuantity() {
@@ -10,10 +11,30 @@ const ProductCard = ({ title, price, panelcolor, bgcolor, textcolor }) => {
   }
 
   function minusQuantity() {
-    if (quantity !== 0) {
+    if (quantity > 0) {
       setQuantity(quantity - 1);
     } else {
       setQuantity(0);
+    }
+  }
+
+  
+  async function addToCart() {
+    // Implement functionality to add product to cart here
+    console.log(`Added ${quantity} ${title} to cart`);
+    // You can add further logic here to send data to backend or manage state
+    try {
+      const res = await axios.post(`${import.meta.env.VITE_APP_BASE_URI}/cart/addToCart`,{
+        productId:id,
+        quantity,
+      },{
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        }
+      })
+      console.log(res);
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -37,6 +58,11 @@ const ProductCard = ({ title, price, panelcolor, bgcolor, textcolor }) => {
               <Link className='font-bold text-md' onClick={minusQuantity}>-</Link>
             </div>
           </div>
+        </div>
+        <div className='w-full flex justify-center'>
+          <button onClick={addToCart} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2'>
+            Add to Cart
+          </button>
         </div>
       </div>
     </>

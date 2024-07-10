@@ -32,14 +32,6 @@ function App() {
 
   return (
     <RecoilRoot>
-      {/* <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home/>}/>
-          <Route path="/user/auth" element={<Auth/>}/>
-          <Route path="/user/home" element={<Home/>}/>
-          <Route path="/user/MyAccount" element={<MyAccount/>}/>
-        </Routes>
-      </BrowserRouter> */}
       <RouterProvider router={router}/>
     </RecoilRoot>
   );
