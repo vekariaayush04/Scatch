@@ -6,6 +6,8 @@ import Auth from "./components/Auth";
 import Home from "./components/Home";
 import MyAccount from "./components/MyAccount";
 import Shop from "./components/Shop";
+import Item from "./components/ui/Item";
+import Cart from "./components/Cart";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -21,6 +23,14 @@ function App() {
         {
           path:"/MyAccount",
           element:<MyAccount/>
+        },
+        {
+          path:"product/:id",
+          element:<Item/>
+        },
+        {
+          path:"/cart",
+          element:<Cart/>
         }
       ]
     },

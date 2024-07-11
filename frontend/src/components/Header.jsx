@@ -9,7 +9,7 @@ const Header = ({userData}) => {
             <div className='flex ml-auto'>
                 <Link className='m-2' to={''}>Home</Link>
                 <Link className='m-2' to={''}>Products</Link>
-                <Link className='m-2' to={'/user/cart'}>Cart</Link>
+                <Link className='m-2' to={'cart'}>Cart</Link>
                 <Link className='my-2 ml-2 mr-6' to={"/MyAccount"}>My Account</Link>
             </div>
         </div>
