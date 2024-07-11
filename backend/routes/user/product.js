@@ -5,11 +5,6 @@ const Product = require('../../models/product.model');
 
 const productRouter = express.Router();
 
-productRouter.get("/",verifyToken,async (req,res)=>{
-    const data = await User.findById(req.userId);
-    res.send(data);
-})
-
 productRouter.get("/allproducts",verifyToken,async (req,res) => {
     const userData = await User.findById(req.userId);
     const products = await Product.find({});
@@ -17,4 +12,13 @@ productRouter.get("/allproducts",verifyToken,async (req,res) => {
     res.send({userData, products});
 })
 
+productRouter.get("/:id",verifyToken,async (req,res) => {
+    const id = req.params.id;
+    console.log(id);
+    console.log(typeof(id));
+    const product = await Product.findById(id);
+
+    res.send(product)
+
+})
 module.exports = productRouter
