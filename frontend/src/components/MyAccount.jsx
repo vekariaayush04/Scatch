@@ -17,7 +17,7 @@ const MyAccount = () => {
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userData'); // Remove user data from local storage
-    navigate('/user/auth');
+    navigate('/auth');
     window.location.reload();
   };
 

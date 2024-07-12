@@ -24,7 +24,7 @@ const Products = () => {
         console.log(response.data.userData);
       } catch (error) {
         console.error('Error fetching product data:', error);
-        navigate("/user/auth");
+        navigate("/auth");
       }
     };
     fetchData();

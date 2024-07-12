@@ -2,7 +2,7 @@ import React from 'react'
 import img from '../../assets/bag.png'
 const CartItem = ({bgcolor , productname ,quantity, price}) => {
   return (
-    <div className={`h-[17rem] flex m-6 rounded-2xl`} style={{ backgroundColor: bgcolor }}>
+    <div className={`h-[17rem] flex m-6 rounded-2xl border-2`} style={{ backgroundColor: bgcolor }}>
           <div className='rounded-l-2xl' style={{ backgroundColor: "blue" }}>
             <img src={img} alt="img" className='h-[13rem] my-8 mx-6' />
           </div>

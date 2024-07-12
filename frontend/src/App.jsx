@@ -35,7 +35,7 @@ function App() {
       ]
     },
     {
-      path: '/user/auth',
+      path: "/auth",
       element :<Auth/>
     }
   ])
