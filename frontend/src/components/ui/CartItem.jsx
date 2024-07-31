@@ -16,7 +16,7 @@ const CartItem = ({ bgcolor, productname, quantity, price }) => {
         </div>
         <div className="m-3 mt-16 text-lg text-gray-500">Qty: {quantity}</div>
         <div className="m-3 text-lg text-gray-500 mb-2">
-          Net Total : {price * quantity}
+          Net Total : {Math.floor(price * quantity)}
         </div>
       </div>
     </div>
