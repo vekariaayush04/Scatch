@@ -6,6 +6,10 @@ const userSchema = new Schema({
     email: String,
     password: String,
     phoneNumber: Number,
+    isAdmin: {
+        type: Boolean,
+        default: false
+    },
     cart: [{
         type: Schema.Types.ObjectId,
         ref: 'Cart' // Reference to the Cart model

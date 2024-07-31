@@ -6,7 +6,7 @@ import { toast, ToastContainer } from 'react-toastify';
 const Item = () => {
     const { id } = useParams();
     const [itemData , setItemData] = useState({});
-    const [quantity,setQuantity] = useState(0);
+    const [quantity,setQuantity] = useState(1);
     async function getItem () {
         try {
             const product = await axios.get(`${import.meta.env.VITE_APP_BASE_URI}/product/${id}`,{
@@ -28,7 +28,7 @@ const Item = () => {
     },[id])
 
     const handleIncrement = () => setQuantity(quantity + 1);
-    const handleDecrement = () => setQuantity(quantity > 0 ? quantity - 1 : 0);
+    const handleDecrement = () => setQuantity(quantity > 1 ? quantity - 1 : 1);
   
     const addToCart = async () => {
       try {

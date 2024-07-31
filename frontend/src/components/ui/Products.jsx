@@ -31,7 +31,7 @@ const Products = () => {
   }, [navigate, setUser]); // dependency array to avoid multiple calls
 
   return (
-    <div className='flex-1 h-[35rem] overflow-y-auto flex flex-wrap justify-evenly'>
+    <div className='flex-1 h-[35rem] overflow-y-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
       {productdata.map((product, index) => (
         <ProductCard
           id={product._id}

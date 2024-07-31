@@ -61,7 +61,7 @@ const Auth = () => {
                 });
                 // Reload the page after successful signup
               } catch (error) {
-                toast.error("Signup failed",{
+                toast.error(error.response.data.message,{
                   onClose: () => {
                     window.location.reload();
                   }

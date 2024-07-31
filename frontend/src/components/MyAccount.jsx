@@ -21,8 +21,9 @@ const MyAccount = () => {
     window.location.reload();
   };
 
+
   return (
-    <div className="container mx-auto p-6 bg-gray-100 min-h-screen">
+    <div className="container mx-auto p-6 bg-gray-100">
       <div className="bg-white shadow-md rounded-lg p-6">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold">My Account</h1>
