@@ -85,4 +85,28 @@ cartRouter.post("/removeFromCart", verifyToken, async (req, res) => {
     }
 });
 
+
+cartRouter.get("/cartItems",verifyToken,async (req,res) => {
+    const userId = req.userId;
+
+    try {
+
+        const user =  await User.findById(userId).populate({
+            path: 'cart',
+            populate : { path : 'product'}
+        })
+
+        if(!user){
+                res.status(404).json({message : "user not found"})
+        }
+        if(user.cart === null){
+            res.status(404).json({message:'Cart is Empty'})
+        }
+        res.send(user.cart)
+
+    } catch (error) {
+        res.status(500).json({message :'Internal Server Error'})
+    }
+})
+
 module.exports = cartRouter;
