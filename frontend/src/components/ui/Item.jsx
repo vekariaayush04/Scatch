@@ -42,7 +42,7 @@ const Item = () => {
         });
         console.log(response.data);
         toast(response.data.message)
-        setQuantity(0)
+        setQuantity(quantity)
       } catch (error) {
         console.error(error);
         toast(error.message)
