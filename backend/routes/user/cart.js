@@ -71,7 +71,8 @@ cartRouter.post("/removeFromCart", verifyToken, async (req, res) => {
 
         // Remove the cart item from the user's cart array
         user.cart = user.cart.filter(item => item._id.toString() !== cartItem._id.toString());
-
+        console.log(user.cart);
+        
         // Save the user without the cart item
         await user.save();
 
@@ -110,3 +111,4 @@ cartRouter.get("/cartItems",verifyToken,async (req,res) => {
 })
 
 module.exports = cartRouter;
+

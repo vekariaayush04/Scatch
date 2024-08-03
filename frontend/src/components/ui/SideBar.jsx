@@ -1,7 +1,20 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const SideBar = () => {
+const SideBar = ({isAdmin}) => {
+
+  if(isAdmin){
+    return (
+      <div className='w-60 border border-r-2' style={{ height: '35rem' }}>
+          <div className='mt-8 mb-24 mx-6'>
+            <Link to="/admin/all-products">All Products</Link>
+            <br />
+            <Link to="/admin/create-new-product">Create New Product</Link>
+          </div>
+        </div>
+    )
+  }
+
   return (
     <div className='w-60' style={{ height: '35rem' }}>
           <div className='flex m-6'>

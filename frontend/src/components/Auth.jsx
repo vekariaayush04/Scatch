@@ -9,16 +9,51 @@ import axios from 'axios';
 const Auth = () => {
 
   const navigate = useNavigate()
+  
   const [ signupData , setSignupData] = useState({
     username:"",
     email:"",
     password:""
+
   })
 
   const [ loginData , setLoginData] = useState({
     email:"",
     password:""
   })
+
+  const handleSignup = async ()=>{
+    try {
+      const response = await axios.post("http://localhost:3000/v1/user/auth/signup", signupData);
+      toast(response.data.message,{
+        onClose: () => {
+          window.location.reload();
+        }
+      });
+      // Reload the page after successful signup
+    } catch (error) {
+      toast.error(error.response.data.message,{
+        onClose: () => {
+          window.location.reload();
+        }
+      });
+    }
+  }
+
+  const handleSignin = async ()=>{
+    try {
+      const data = await axios.post("http://localhost:3000/v1/user/auth/login",loginData)
+      console.log(data);
+      localStorage.setItem("token",data.data.token)
+      data.data.isAdmin ? navigate('/admin') : navigate('/')
+    } catch (error) {
+      toast.error("Login failed",{
+        onClose: () => {
+          window.location.reload();
+        }
+      });
+    }           
+  }
 
   return (
     <>
@@ -51,23 +86,7 @@ const Auth = () => {
               console.log(signupData);
             }}/>
             <br />
-            <Button1 title={"Create My Account"} onClick={async ()=>{
-              try {
-                const response = await axios.post("http://localhost:3000/v1/user/auth/signup", signupData);
-                toast(response.data.message,{
-                  onClose: () => {
-                    window.location.reload();
-                  }
-                });
-                // Reload the page after successful signup
-              } catch (error) {
-                toast.error(error.response.data.message,{
-                  onClose: () => {
-                    window.location.reload();
-                  }
-                });
-              }
-            }}/>
+            <Button1 title={"Create My Account"} onClick={handleSignup}/>
             <ToastContainer/>
           </div>
         </div>
@@ -89,20 +108,7 @@ const Auth = () => {
               setLoginData({...loginData,password:e.target.value})
             }}/>
           <br />
-          <Button1 title={'Login'} onClick={async ()=>{
-              try {
-                const data = await axios.post("http://localhost:3000/v1/user/auth/login",loginData)
-                console.log(data);
-                localStorage.setItem("token",data.data.token)
-                navigate('/');  
-              } catch (error) {
-                toast.error("Login failed",{
-                  onClose: () => {
-                    window.location.reload();
-                  }
-                });
-              }           
-            }} />
+          <Button1 title={'Login'} onClick={handleSignin} />
           </div>
       </div>
       </div>

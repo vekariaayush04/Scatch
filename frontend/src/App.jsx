@@ -3,11 +3,14 @@ import { BrowserRouter , createBrowserRouter, Route , RouterProvider, Routes } f
 import { RecoilRoot } from 'recoil'
 import "./App.css";
 import Auth from "./components/Auth";
-import Home from "./components/Home";
+import Home from "./components/user/Home";
 import MyAccount from "./components/MyAccount";
-import Shop from "./components/Shop";
+import Shop from "./components/user/Shop";
 import Item from "./components/ui/Item";
-import Cart from "./components/Cart";
+import Cart from "./components/user/Cart";
+import Admin from "./components/admin/Admin";
+import AdminHome from "./components/admin/AdminHome";
+import NewProduct from "./components/admin/NewProduct";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -37,6 +40,26 @@ function App() {
     {
       path: "/auth",
       element :<Auth/>
+    },{
+      path: "/admin",
+      element :<Admin/>,
+      children : [
+        {
+          path:"",
+          element:<AdminHome/>,
+          children: [
+            {
+              path:"",
+              element : <NewProduct/>
+            },
+            {
+              path:"/admin/create-new-product",
+              element : <NewProduct/>
+            },
+            
+          ]
+        }
+      ]
     }
   ])
 

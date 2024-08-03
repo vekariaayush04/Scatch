@@ -9,8 +9,10 @@ const MyAccount = () => {
 
   useEffect(() => {
     const savedUserData = localStorage.getItem('userData');
-    if (savedUserData) {
+    if (savedUserData !== null) {
       setUser(JSON.parse(savedUserData)); // Load user data from local storage
+    }else{
+      navigate('/')
     }
   }, [setUser]);
 
