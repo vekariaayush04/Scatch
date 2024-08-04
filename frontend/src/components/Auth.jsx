@@ -47,10 +47,9 @@ const Auth = () => {
       localStorage.setItem("token",data.data.token)
       data.data.isAdmin ? navigate('/admin') : navigate('/')
     } catch (error) {
+
       toast.error("Login failed",{
-        onClose: () => {
-          window.location.reload();
-        }
+        
       });
     }           
   }

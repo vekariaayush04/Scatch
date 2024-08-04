@@ -1,10 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import img from '../../assets/bag.png'
 import { toast, ToastContainer } from 'react-toastify';
 const Item = () => {
     const { id } = useParams();
+    const navigate = useNavigate()
     const [itemData , setItemData] = useState({});
     const [quantity,setQuantity] = useState(1);
     async function getItem () {
@@ -21,6 +22,7 @@ const Item = () => {
 
         } catch (error) {
             console.error(error)
+            navigate('/')
         }
     }
     useEffect(() => {
