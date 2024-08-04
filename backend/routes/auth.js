@@ -2,10 +2,10 @@ const { Router } = require('express');
 const { hash, compare } = require('bcryptjs');
 const { sign } = require('jsonwebtoken');
 const { z } = require('zod');
-const User = require('../../models/user.model');
+const User = require('../models/user.model');
 
 const router = Router();
-const pattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
+const pattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/
 
 const signupSchema = z.object({
     username: z.string(),
@@ -57,12 +57,12 @@ router.post('/login', async (req, res) => {
     try {
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(400).json({ message: 'Invalid email or password' });
+            return res.status(400).json({ message: 'Invalid email' });
         }
 
-        const isMatch = await compare(password, user.password);
+        const isMatch = compare(password, user.password);
         if (!isMatch) {
-            return res.status(400).json({ message: 'Invalid email or password' });
+            return res.status(400).json({ message: 'Invalid password' });
         }
 
         const token = sign({ id: user._id }, 'your_jwt_secret', { expiresIn: '1h' });
