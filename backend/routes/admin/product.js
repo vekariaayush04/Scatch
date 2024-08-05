@@ -2,7 +2,8 @@ const express = require('express');
 const verifyToken = require('../../middlewares/loginmiddleware');
 const User = require('../../models/user.model');
 const Product = require('../../models/product.model');
-const { z } = require('zod')
+const { z } = require('zod');
+const uploadImage = require('../../utils/uploadImage');
 
 const productRouter = express.Router();
 
@@ -16,7 +17,6 @@ const productSchema = z.object({
     textcolor: z.string()
 })
 
-productRouter.get()
 
 productRouter.post('/addProduct',verifyToken,async (req,res) => {
 
@@ -46,7 +46,7 @@ productRouter.post('/addProduct',verifyToken,async (req,res) => {
 
     try {
         
-        const user = await User.findById(userId)
+        const user = await User.findById(userId).populate("products")
 
         if(!user){
             return res.status(500).json({
@@ -54,13 +54,38 @@ productRouter.post('/addProduct',verifyToken,async (req,res) => {
             })
         }
 
+        if(!user.isAdmin){
+            return res.status(500).json({
+                message:"User is not Admin"
+            })
+        }
+        const result = uploadImage()
         
+        const newProduct = new Product({
+            imageurl:result.url,
+            productname,
+            price,
+            discount,
+            panelcolor,
+            bgcolor,
+            textcolor
+        })
 
+        newProduct.save()
+
+        user.products.push(newProduct)
+
+        await user.save()
+
+        res.status(200).json({ message: 'Product added to data', products: user.products });
 
     } catch (error) {
         return res.status(500).json({
-            message:"Server Error"
+            message:"Server Error"+error
+            
         })
     }
 
 })
+
+module.exports = productRouter

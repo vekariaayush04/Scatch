@@ -17,6 +17,10 @@ const userSchema = new Schema({
     orders: [{
         type: Schema.Types.ObjectId,
         ref: 'Order' // Reference to the Order model
+    }],
+    products: [{
+        type : Schema.Types.ObjectId,
+        ref: "Product"
     }]
 });
 

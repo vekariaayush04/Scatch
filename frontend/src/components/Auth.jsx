@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import logo from '../assets/logo-removebg-preview.png'
 import Button1 from "./ui/Button1";
 import InputBox from "./ui/InputBox";
 import axios from 'axios';
@@ -57,8 +58,8 @@ const Auth = () => {
   return (
     <>
       <div className="flex">
-      <div className="z-10 absolute left-16 top-7  text-2xl font-bold font-serif">
-        Scatch
+      <div className="z-10 absolute left-11 top-7  text-2xl font-bold font-serif">
+        <img src={logo} alt="" className="h- w-32" />
       </div>
       <div className="h-screen w-1/12"></div>
 

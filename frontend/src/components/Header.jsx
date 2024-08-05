@@ -1,11 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import logo from '../assets/logo-removebg-preview.png'
 
 const Header = ({userData , isAdmin}) => {
   return (
     <>
         <div className='flex top-0 items-center w-screen h-16 border-stone-500 border-b-2'>
-            <div className='font-serif text-2xl p-6 '>Shop.</div>
+            <div className='font-serif text-2xl p-6 '>
+              Scatch
+            </div>
             <div className='flex ml-auto'>
               {isAdmin ? (
                   <>
