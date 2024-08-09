@@ -15,7 +15,7 @@ const CartItem = ({ bgcolor, productname, quantity, price, id, onQuantityChange 
       if (quant === 0) {
         try {
           const response = await axios.post(
-            `${import.meta.env.VITE_APP_BASE_URI}/cart/removeFromCart`,
+            `${import.meta.env.VITE_APP_BASE_URI}/user/cart/removeFromCart`,
             { productId: id },
             { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
           );
@@ -29,7 +29,7 @@ const CartItem = ({ bgcolor, productname, quantity, price, id, onQuantityChange 
       } else {
         try {
           const response = await axios.post(
-            `${import.meta.env.VITE_APP_BASE_URI}/cart/addToCart`,
+            `${import.meta.env.VITE_APP_BASE_URI}/user/cart/addToCart`,
             { productId: id, quantity: quant },
             { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
           );

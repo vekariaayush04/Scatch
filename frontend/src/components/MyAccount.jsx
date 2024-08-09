@@ -7,7 +7,15 @@ const MyAccount = () => {
   const [user, setUser] = useRecoilState(userData);
   const navigate = useNavigate();
 
+  if(user === null){
+    navigate('/auth')
+  }
+  
   useEffect(() => {
+    
+    if(user.isAdmin){
+      navigate('/admin')
+    } 
     const savedUserData = localStorage.getItem('userData');
     if (savedUserData !== null) {
       setUser(JSON.parse(savedUserData)); // Load user data from local storage

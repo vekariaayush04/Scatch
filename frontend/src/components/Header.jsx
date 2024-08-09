@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../assets/logo-removebg-preview.png'
 
-const Header = ({userData , isAdmin}) => {
+const Header = ({ isAdmin}) => {
   return (
     <>
         <div className='flex top-0 items-center w-screen h-16 border-stone-500 border-b-2'>

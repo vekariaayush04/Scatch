@@ -5,9 +5,12 @@ import '../../App.css';
 import pricefloor from '../../utils/PriceFloor';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { userData } from '../../atoms/UserAtom';
 
 const Cart = () => {
   const navigate = useNavigate();
+  const [user, setUser] = useRecoilState(userData);
   const [cartData, setCartData] = useState([]);
   const [mrp, setMrp] = useState(0);
   const [discount, setDiscount] = useState(0);
@@ -16,9 +19,14 @@ const Cart = () => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [reload, setReload] = useState(false);
 
+  if(user === null){
+    navigate('/auth')
+  }
+
   const getCartData = async () => {
+    
     try {
-      const response = await axios.get(`${import.meta.env.VITE_APP_BASE_URI}/cart/cartItems`, {
+      const response = await axios.get(`${import.meta.env.VITE_APP_BASE_URI}/user/cart/cartItems`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       setCartData(response.data);
@@ -33,6 +41,9 @@ const Cart = () => {
   const calculateDiscounts = (data) => data.reduce((total, item) => total + item.product.discount * item.quantity, 0);
 
   useEffect(() => {
+    if(user.isAdmin){
+      navigate('/admin')
+    } 
     getCartData();
   }, [reload]);
 

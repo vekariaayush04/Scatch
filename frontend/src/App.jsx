@@ -11,9 +11,9 @@ import Cart from "./components/user/Cart";
 import Admin from "./components/admin/Admin";
 import AdminHome from "./components/admin/AdminHome";
 import NewProduct from "./components/admin/NewProduct";
+import Ayush from "./components/Ayush";
 
 function App() {
-  const [count, setCount] = useState(0);
   const router = createBrowserRouter([
     {
       path: "",
@@ -22,6 +22,10 @@ function App() {
         {
           path:"",
           element:<Shop/>
+        },
+        {
+          path:"/ayush",
+          element:<Ayush/>
         },
         {
           path:"/MyAccount",

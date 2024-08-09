@@ -8,9 +8,9 @@ import InputBox from "./ui/InputBox";
 import axios from 'axios';
 
 const Auth = () => {
-
   const navigate = useNavigate()
-  
+  const [isAuthenticated,setIsAuthenticated] = useState(false)
+  const [user,setUser] = useState({})
   const [ signupData , setSignupData] = useState({
     username:"",
     email:"",
@@ -21,7 +21,29 @@ const Auth = () => {
   const [ loginData , setLoginData] = useState({
     email:"",
     password:""
-  })
+  }) 
+
+  useEffect(()=>{
+    if(localStorage.getItem("token")){
+      setIsAuthenticated(true)
+    }
+    if(isAuthenticated){
+      user.isAdmin ? navigate("/admin") : navigate('/')
+     }
+  },[isAuthenticated,user])
+
+  const handleSignin = async ()=>{
+    try {
+      const data = await axios.post("http://localhost:3000/v1/user/auth/login",loginData)
+      const userData = await data.data
+      localStorage.setItem("token",userData.token)
+      setIsAuthenticated(true)
+      setUser(userData)
+    } catch (error) {
+      toast.error("Login failed",{  
+      });
+    }           
+  }
 
   const handleSignup = async ()=>{
     try {
@@ -33,27 +55,10 @@ const Auth = () => {
       });
       // Reload the page after successful signup
     } catch (error) {
-      toast.error(error.response.data.message,{
-        onClose: () => {
-          window.location.reload();
-        }
-      });
+      toast.error(error.response.data.message);
     }
   }
 
-  const handleSignin = async ()=>{
-    try {
-      const data = await axios.post("http://localhost:3000/v1/user/auth/login",loginData)
-      console.log(data);
-      localStorage.setItem("token",data.data.token)
-      data.data.isAdmin ? navigate('/admin') : navigate('/')
-    } catch (error) {
-
-      toast.error("Login failed",{
-        
-      });
-    }           
-  }
 
   return (
     <>
@@ -117,3 +122,6 @@ const Auth = () => {
 };
 
 export default Auth;
+
+
+

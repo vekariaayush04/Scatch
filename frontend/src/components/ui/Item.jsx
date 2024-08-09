@@ -3,14 +3,22 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import img from '../../assets/bag.png'
 import { toast, ToastContainer } from 'react-toastify';
+import { userData } from '../../atoms/UserAtom';
+import { useRecoilState } from 'recoil';
 const Item = () => {
     const { id } = useParams();
     const navigate = useNavigate()
     const [itemData , setItemData] = useState({});
     const [quantity,setQuantity] = useState(1);
+    const [user, setUser] = useRecoilState(userData);
+
+    if(user === null){
+      navigate('/auth')
+    }
+
     async function getItem () {
         try {
-            const product = await axios.get(`${import.meta.env.VITE_APP_BASE_URI}/product/${id}`,{
+            const product = await axios.get(`${import.meta.env.VITE_APP_BASE_URI}/user/product/${id}`,{
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                   }
@@ -26,7 +34,10 @@ const Item = () => {
         }
     }
     useEffect(() => {
-        getItem()
+      if(user.isAdmin){
+        navigate('/admin')
+      } 
+      getItem()
     },[id])
 
     const handleIncrement = () => setQuantity(quantity + 1);
@@ -34,7 +45,7 @@ const Item = () => {
   
     const addToCart = async () => {
       try {
-        const response = await axios.post(`${import.meta.env.VITE_APP_BASE_URI}/cart/addToCart`, {
+        const response = await axios.post(`${import.meta.env.VITE_APP_BASE_URI}/user/cart/addToCart`, {
           productId: id,
           quantity,
         }, {
