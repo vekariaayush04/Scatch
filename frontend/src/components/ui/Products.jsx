@@ -8,16 +8,17 @@ import ProductCard from './ProductCard';
 const Products = () => {
   const navigate = useNavigate();
   const [productdata, setProductdata] = useState([]);
-  const user = useRecoilValue(userData)
+  const token = localStorage.getItem("token")
+  const [user, setUser] = useRecoilState(userData(token));
 
-  
   useEffect(() => {
     if(user === null){
     navigate('/auth')
-  }
+    }
     if(user.isAdmin){
       navigate('/admin')
-    }                                     
+    }         
+
     const fetchData = async () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_APP_BASE_URI}/user/product/allproducts`, {

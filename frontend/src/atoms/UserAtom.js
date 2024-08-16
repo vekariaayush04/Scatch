@@ -1,15 +1,13 @@
 import axios from "axios";
-import { atom, selector } from "recoil";
+import { atom,  selectorFamily } from "recoil";
 
-export const userData = atom({
-  key: 'userData',
-  default: selector({
-    key:"user",
-    get:  async () => {
+export const userData =  selectorFamily({
+    key:"userData",
+    get:token =>  async () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_APP_BASE_URI}/user`,{
           headers:{
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            Authorization: `Bearer ${token}`,
           }
         })
         return response.data
@@ -22,5 +20,5 @@ export const userData = atom({
         }
       }
     }
-  }),
-});
+  })
+

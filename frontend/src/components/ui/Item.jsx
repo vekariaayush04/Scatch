@@ -10,7 +10,8 @@ const Item = () => {
     const navigate = useNavigate()
     const [itemData , setItemData] = useState({});
     const [quantity,setQuantity] = useState(1);
-    const [user, setUser] = useRecoilState(userData);
+    const token = localStorage.getItem("token")
+    const [user, setUser] = useRecoilState(userData(token));
 
     if(user === null){
       navigate('/auth')

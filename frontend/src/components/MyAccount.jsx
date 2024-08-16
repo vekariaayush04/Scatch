@@ -1,36 +1,40 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { userData } from '../atoms/UserAtom';
 import { useNavigate } from 'react-router-dom';
 
-const MyAccount = () => {
-  const [user, setUser] = useRecoilState(userData);
-  const navigate = useNavigate();
+const Loader = () => (
+  <div className="flex justify-center items-center h-full">
+    <div className="border-t-4 border-blue-500 border-solid w-16 h-16 border-radius-full animate-spin"></div>
+  </div>
+);
 
-  if(user === null){
-    navigate('/auth')
-  }
+const MyAccount = () => {
+  const token = localStorage.getItem("token")
+  const [user, setUser] = useRecoilState(userData(token));
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  console.log(user);
   
   useEffect(() => {
-    
-    if(user.isAdmin){
-      navigate('/admin')
-    } 
-    const savedUserData = localStorage.getItem('userData');
-    if (savedUserData !== null) {
-      setUser(JSON.parse(savedUserData)); // Load user data from local storage
-    }else{
-      navigate('/')
+    if (user.username === "") {
+      navigate('/auth');
+    } else if (user.isAdmin) {
+      navigate('/admin');
     }
-  }, [setUser]);
+    setLoading(false); // Set loading to false after processing
+  }, [user, navigate]);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    localStorage.removeItem('userData'); // Remove user data from local storage
+    localStorage.removeItem('userData');
+    setUser(null); // Clear user data in Recoil state
     navigate('/auth');
-    window.location.reload();
   };
 
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="container mx-auto p-6 bg-gray-100">
@@ -47,35 +51,35 @@ const MyAccount = () => {
         <div className="mb-6">
           <h2 className="text-2xl font-semibold mb-2">Account Details</h2>
           <div className="text-lg mb-2">
-            <strong>Username:</strong> {user.username}
+            <strong>Username:</strong> {user ? user.username : 'Loading...'}
           </div>
           <div className="text-lg mb-2">
-            <strong>Email:</strong> {user.email}
+            <strong>Email:</strong> {user ? user.email : 'Loading...'}
           </div>
         </div>
         <div className="mb-6">
           <h2 className="text-2xl font-semibold mb-2">Cart</h2>
-          <ul className="list-disc pl-6">
-            {user.cart && user.cart.length > 0 ? (
+          {/* <ul className="list-disc pl-6">
+            {user && user.cart && user.cart.length > 0 ? (
               user.cart.map((item, index) => (
                 <li key={index} className="text-lg mb-1">{item}</li>
               ))
             ) : (
               <li className="text-lg">No items in cart</li>
             )}
-          </ul>
+          </ul> */}
         </div>
         <div>
           <h2 className="text-2xl font-semibold mb-2">Orders</h2>
-          <ul className="list-disc pl-6">
-            {user.orders && user.orders.length > 0 ? (
+          {/* <ul className="list-disc pl-6">
+            {user && user.orders && user.orders.length > 0 ? (
               user.orders.map((order, index) => (
                 <li key={index} className="text-lg mb-1">{order}</li>
               ))
             ) : (
               <li className="text-lg">No orders placed</li>
             )}
-          </ul>
+          </ul> */}
         </div>
       </div>
     </div>

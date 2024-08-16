@@ -6,11 +6,17 @@ import logo from '../assets/logo-removebg-preview.png'
 import Button1 from "./ui/Button1";
 import InputBox from "./ui/InputBox";
 import axios from 'axios';
+import { useRecoilValue } from "recoil";
+import { userData } from "../atoms/UserAtom";
+
 
 const Auth = () => {
+  const token = localStorage.getItem("token")
   const navigate = useNavigate()
   const [isAuthenticated,setIsAuthenticated] = useState(false)
-  const [user,setUser] = useState({})
+  const [isAdmin , setIsAdmin] = useState(null)
+  const user = useRecoilValue(userData(token))
+
   const [ signupData , setSignupData] = useState({
     username:"",
     email:"",
@@ -24,13 +30,20 @@ const Auth = () => {
   }) 
 
   useEffect(()=>{
-    if(localStorage.getItem("token")){
-      setIsAuthenticated(true)
+    if(localStorage.getItem('token')){
+      user.isAdmin ? navigate("/admin") : navigate('/');
     }
-    if(isAuthenticated){
-      user.isAdmin ? navigate("/admin") : navigate('/')
-     }
-  },[isAuthenticated,user])
+  },[])
+
+  useEffect(() => {
+    console.log("Is Authenticated:", isAuthenticated);
+    console.log("Is Admin:", isAdmin);
+    console.log(localStorage.getItem('token'));
+    if (isAuthenticated) {
+      isAdmin ? navigate("/admin") : navigate('/');
+    }
+  }, [isAdmin]);
+  
 
   const handleSignin = async ()=>{
     try {
@@ -38,7 +51,7 @@ const Auth = () => {
       const userData = await data.data
       localStorage.setItem("token",userData.token)
       setIsAuthenticated(true)
-      setUser(userData)
+      setIsAdmin(userData.isAdmin)      
     } catch (error) {
       toast.error("Login failed",{  
       });

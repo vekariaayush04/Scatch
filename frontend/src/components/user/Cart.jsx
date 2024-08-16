@@ -10,7 +10,8 @@ import { userData } from '../../atoms/UserAtom';
 
 const Cart = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useRecoilState(userData);
+  const token = localStorage.getItem("token")
+  const [user, setUser] = useRecoilState(userData(token));
   const [cartData, setCartData] = useState([]);
   const [mrp, setMrp] = useState(0);
   const [discount, setDiscount] = useState(0);
