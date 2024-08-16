@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import img from "../../assets/bag.png";
 import pricefloor from "../../utils/PriceFloor";
 
-const CartItem = ({ bgcolor, productname, quantity, price, id, onQuantityChange }) => {
+const CartItem = ({ bgcolor, productname, quantity, price, id, onQuantityChange ,imageurl}) => {
   const [quant, setQuant] = useState(quantity);
 
   const handleIncrement = () => setQuant(quant + 1);
@@ -44,7 +44,7 @@ const CartItem = ({ bgcolor, productname, quantity, price, id, onQuantityChange 
     };
 
     updateCart();
-  }, [quant, id, onQuantityChange]);
+  }, [quant]);
 
   if (quant === 0) {
     return null; // Return null to remove the component from the DOM
@@ -53,7 +53,7 @@ const CartItem = ({ bgcolor, productname, quantity, price, id, onQuantityChange 
   return (
     <div className={`h-[17rem] flex m-6 rounded-2xl border-2`} style={{ backgroundColor: bgcolor }}>
       <div className="rounded-l-2xl" style={{ backgroundColor: "blue" }}>
-        <img src={img} alt="Product" className="h-[13rem] my-8 mx-6" />
+        <img src={imageurl} alt="Product" className="h-[13rem] my-8 mx-6" />
       </div>
       <div className="m-4">
         <div className="m-3 font-bold text-2xl mb-2">{productname}</div>

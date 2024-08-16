@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import img from '../../assets/bag.png'
 import { toast, ToastContainer } from 'react-toastify';
 import { userData } from '../../atoms/UserAtom';
 import { useRecoilState } from 'recoil';
@@ -66,7 +65,7 @@ const Item = () => {
     return (
         <div className='p-5 flex'>
       <div className='w-1/2'>
-        <img src={img} alt={itemData.productname} className='' />
+        <img src={itemData.imageurl} alt={itemData.productname} className='' />
       </div>
       <div className='w-1/2 pl-5'>
         <h1 className='text-2xl font-bold'>{itemData.productname}</h1>

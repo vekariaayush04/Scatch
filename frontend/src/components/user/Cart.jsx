@@ -10,7 +10,7 @@ import { userData } from '../../atoms/UserAtom';
 
 const Cart = () => {
   const navigate = useNavigate();
-  const token = localStorage.getItem("token")
+  const token = localStorage.getItem("token");
   const [user, setUser] = useRecoilState(userData(token));
   const [cartData, setCartData] = useState([]);
   const [mrp, setMrp] = useState(0);
@@ -20,34 +20,33 @@ const Cart = () => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [reload, setReload] = useState(false);
 
-  if(user === null){
-    navigate('/auth')
-  }
-
-  const getCartData = async () => {
-    
-    try {
-      const response = await axios.get(`${import.meta.env.VITE_APP_BASE_URI}/user/cart/cartItems`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-      });
-      setCartData(response.data);
-    } catch (error) {
-      console.error(error);
-      toast(error.message);
-      navigate("/")
+  // Check if the user is an admin and navigate accordingly
+  useEffect(() => {
+    if (user?.isAdmin) {
+      navigate('/admin');
     }
-  };
-
+  }, [user, navigate]);
   const calculateTotals = (data) => data.reduce((total, item) => total + item.product.price * item.quantity, 0);
   const calculateDiscounts = (data) => data.reduce((total, item) => total + item.product.discount * item.quantity, 0);
-
+  // Fetch cart data
   useEffect(() => {
-    if(user.isAdmin){
-      navigate('/admin')
-    } 
-    getCartData();
-  }, [reload]);
+    const getCartData = async () => {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_APP_BASE_URI}/user/cart/cartItems`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setCartData(response.data);
+      } catch (error) {
+        console.error(error);
+        toast(error.message);
+        navigate("/");
+      }
+    };
 
+    getCartData();
+  }, [reload]); // Minimal dependencies to avoid unnecessary re-fetches
+
+  // Calculate totals when cart data changes
   useEffect(() => {
     if (cartData.length > 0) {
       const totalMRP = pricefloor(calculateTotals(cartData));
@@ -85,6 +84,7 @@ const Cart = () => {
               quantity={product.quantity}
               key={product.product._id} // Ensure each item has a unique key
               id={product.product._id}
+              imageurl={product.product.imageurl}
               onQuantityChange={handleQuantityChange}
             />
           ))

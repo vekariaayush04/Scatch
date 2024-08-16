@@ -16,7 +16,8 @@ cartRouter.post("/addToCart", verifyToken, async (req, res) => {
                 path: 'product'
             }
         });
-
+        console.log(user);
+        
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }

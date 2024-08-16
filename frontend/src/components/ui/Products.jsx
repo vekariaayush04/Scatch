@@ -34,8 +34,9 @@ const Products = () => {
         navigate("/auth");
       }
     };
+
     fetchData();
-  }, [navigate]); // dependency array to avoid multiple calls
+  }, [user,navigate]); // dependency array to avoid multiple calls
 
   return (
     <div className='flex-1 h-[35rem] overflow-y-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
@@ -48,6 +49,7 @@ const Products = () => {
           panelcolor={product.panelcolor}
           bgcolor={product.bgcolor}
           textcolor={product.textcolor}
+          imgUrl={product.imageurl}
         />
       ))}
     </div>

@@ -3,40 +3,46 @@ const verifyToken = require('../../middlewares/loginmiddleware');
 const User = require('../../models/user.model');
 const Product = require('../../models/product.model');
 const { z } = require('zod');
+const multer  = require('multer')
 const uploadImage = require('../../utils/uploadImage');
+
+const storage = multer.memoryStorage()
+const upload = multer({ storage: storage })
 
 const productRouter = express.Router();
 
 const productSchema = z.object({
-    imageurl: z.string().url(),
     productname: z.string().max(15),
-    price: z.number(),
-    discount: z.number(),
+    price: z.any(),
+    discount: z.any(),
     panelcolor: z.string(),
     bgcolor: z.string(),
     textcolor: z.string()
 })
 
 
-productRouter.post('/addProduct',verifyToken,async (req,res) => {
+productRouter.post('/addProduct',verifyToken,upload.single('productImage') ,async (req,res) => {
 
     const userId = req.userId;
-
-    const { imageurl,
+    const file = req.file;
+    
+    const { 
         productname,
         price,
         discount,
         panelcolor,
         bgcolor,
-        textcolor } = req.body;
-
-    const validData = productSchema.safeParse({ imageurl,
+        textcolor 
+    } = req.body;
+    
+    const validData = productSchema.safeParse({ 
         productname,
         price,
         discount,
         panelcolor,
         bgcolor,
-        textcolor })  
+        textcolor 
+    })  
         
     if(!validData.success){
         return res.status(404).json({
@@ -59,10 +65,11 @@ productRouter.post('/addProduct',verifyToken,async (req,res) => {
                 message:"User is not Admin"
             })
         }
-        const result = uploadImage()
+        const result =await uploadImage(file)
+        console.log(result);
         
         const newProduct = new Product({
-            imageurl:result.url,
+            imageurl:result.secure_url,
             productname,
             price,
             discount,

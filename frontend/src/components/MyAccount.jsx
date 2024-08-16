@@ -28,7 +28,6 @@ const MyAccount = () => {
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userData');
-    setUser(null); // Clear user data in Recoil state
     navigate('/auth');
   };
 
