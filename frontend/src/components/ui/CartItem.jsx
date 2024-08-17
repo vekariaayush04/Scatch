@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import img from "../../assets/bag.png";
 import pricefloor from "../../utils/PriceFloor";
 
-const CartItem = ({ bgcolor, productname, quantity, price, id, onQuantityChange ,imageurl}) => {
+const CartItem = ({ productname, quantity, price, id, onQuantityChange ,imageurl}) => {
   const [quant, setQuant] = useState(quantity);
 
   const handleIncrement = () => setQuant(quant + 1);
@@ -51,22 +51,35 @@ const CartItem = ({ bgcolor, productname, quantity, price, id, onQuantityChange 
   }
 
   return (
-    <div className={`h-[17rem] flex m-6 rounded-2xl border-2`} style={{ backgroundColor: bgcolor }}>
-      <div className="rounded-l-2xl" style={{ backgroundColor: "blue" }}>
-        <img src={imageurl} alt="Product" className="h-[13rem] my-8 mx-6" />
-      </div>
-      <div className="m-4">
-        <div className="m-3 font-bold text-2xl mb-2">{productname}</div>
-        <div className="m-3 text-lg text-gray-500 mb-2">Item Price: {price}</div>
-        <div className="m-3 mt-16 text-lg text-gray-500">Qty: {quant}</div>
-        <div className="m-3 text-lg text-gray-500 mb-2">Net Total: {pricefloor(price * quant)}</div>
-        <div className="flex items-center mt-4">
-          <button onClick={handleDecrement} className="bg-gray-200 p-2 rounded">-</button>
-          <span className="mx-2 text-lg">{quant}</span>
-          <button onClick={handleIncrement} className="bg-gray-200 p-2 rounded">+</button>
-        </div>
-      </div>
+    <div className="h-[18rem] m-6 rounded-2xl border-2 shadow-lg grid grid-cols-3 overflow-hidden transform transition-transform ">
+  <div className="col-span-1 flex items-center justify-center bg-white rounded-l-2xl">
+    <img src={imageurl} alt="Product" className="h-[14rem] w-auto object-contain p-4" />
+  </div>
+  <div className="m-4 col-span-1 flex flex-col justify-between">
+    <div className="font-bold text-3xl text-gray-800 mb-2">{productname}</div>
+    <div className="text-xl text-gray-500 mb-2">{`Item Price: ₹${price}`}</div>
+    <div className="text-xl text-gray-500 mt-4">{`Qty: ${quant}`}</div>
+    <div className="text-xl text-gray-800 font-semibold">{`Net Total: ₹${pricefloor(price * quant)}`}</div>
+  </div>
+  <div className="col-span-1 flex flex-col justify-center items-center">
+    <div className="flex items-center space-x-4">
+      <button 
+        onClick={handleDecrement} 
+        className="bg-gray-200 p-3 rounded-full text-xl font-bold text-gray-700 hover:bg-gray-300 transition"
+      >
+        -
+      </button>
+      <span className="text-2xl font-semibold text-gray-800">{quant}</span>
+      <button 
+        onClick={handleIncrement} 
+        className="bg-gray-200 p-3 rounded-full text-xl font-bold text-gray-700 hover:bg-gray-300 transition"
+      >
+        +
+      </button>
     </div>
+  </div>
+</div>
+
   );
 };
 

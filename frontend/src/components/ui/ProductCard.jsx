@@ -1,27 +1,28 @@
-import React, { useState } from 'react';
-import bag from '../../assets/bag.png';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState } from "react";
+import bag from "../../assets/bag.png";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
-const ProductCard = ({id , title, price, panelcolor, bgcolor, textcolor ,imgUrl}) => {
-
+const ProductCard = ({ id, title, price, imgUrl }) => {
   return (
     <>
-
-      <Link className='h-56 w-48 bg-white mt-5 flex-col ml-5' to={`/product/${id}`} >
-
-        <div style={{ backgroundColor: bgcolor }} className='h-40 w-48 flex justify-center items-center rounded-t-xl'>
-          <img src={imgUrl} alt="" className='h-40 w-40object-contain'/>
-        </div>
-
-        <div style={{ backgroundColor: panelcolor }} className='h-16 w-48 flex justify-between items-center rounded-b-xl'>
-          <div>
-            <h2 className='px-1 ml-2 pt-1'>{title}</h2>
-            <h3 className='px-1 ml-2'>{`₹${price}`}</h3>
+      <div className="h-60 w-52 mt-5 ml-5 flex flex-col rounded-t-xl rounded-b-2xl shadow-lg transform transition-transform hover:scale-105">
+        <Link to={`/product/${id}`} className="block h-full">
+          <div className="w-full flex justify-center bg-base-100 items-center rounded-t-xl shadow-inner">
+            <img
+              src={imgUrl}
+              alt={title}
+              className="h-40 w-40 object-contain"
+            />
           </div>
-        </div>
-
-      </Link>
+          <div className="h-20 w-full flex justify-between items-center rounded-b-2xl bg-base-200 p-3">
+            <div>
+              <h2 className="text-lg font-semibold text-gray-800">{title}</h2>
+              <h3 className="text-xl font-bold text-gray-600">{`₹${price}`}</h3>
+            </div>
+          </div>
+        </Link>
+      </div>
     </>
   );
 };

@@ -10,9 +10,11 @@ const Home = () => {
   
   return (
     <>
+    <div className='h-screen'>
     <Header isAdmin={false}/>
     <Outlet/>
     <Footer/>
+    </div>
     </>
   )
 }

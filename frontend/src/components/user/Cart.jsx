@@ -78,7 +78,6 @@ const Cart = () => {
         {cartData.length > 0 ? (
           cartData.map((product, index) => (
             <CartItem
-              bgcolor={product.product.bgcolor}
               productname={product.product.productname}
               price={product.product.price}
               quantity={product.quantity}
@@ -93,33 +92,36 @@ const Cart = () => {
         )}
       </div>
       <div className="w-full lg:w-2/5">
-        <div className="h-[17rem] bg-slate-400 m-6 rounded-xl">
-          <div className="pt-3 pl-4 m-2 text-xl font-semibold">Price Breakdown</div>
-          <div className="m-2 pl-7">
-            <div className="flex m-1 font-semibold justify-between mr-9">
-              <div>Total MRP</div>
-              <div>{mrp}</div>
-            </div>
-            <div className="flex m-1 font-semibold justify-between mr-9">
-              <div>Discount on MRP</div>
-              <div>{discount}</div>
-            </div>
-            <div className="flex m-1 font-semibold justify-between mr-9">
-              <div>Platform Fee</div>
-              <div>{platformFee}</div>
-            </div>
-            <div className="flex m-1 font-semibold justify-between mr-9">
-              <div>Shipping Fee</div>
-              <div>{shippingFee}</div>
-            </div>
-          </div>
-          <div className="flex m-2 pl-7 pt-7 font-semibold text-lg justify-between mr-9">
-            <div>Total Amount</div>
-            <div>{totalAmount}</div>
-          </div>
-          <button className="ml-7 mt-1 h-8 px-3 rounded-xl bg-black text-white">Place Order</button>
-        </div>
+  <div className="h-[24rem] bg-gradient-to-br from-gray-50 to-gray-100 m-6 rounded-xl shadow-lg p-6">
+    <div className="text-2xl font-bold text-gray-800 mb-4">Price Breakdown</div>
+    <div className="space-y-3">
+      <div className="flex justify-between text-lg text-gray-700">
+        <div>Total MRP</div>
+        <div className="font-medium">{`₹${mrp}`}</div>
       </div>
+      <div className="flex justify-between text-lg text-gray-700">
+        <div>Discount on MRP</div>
+        <div className="font-medium text-green-600">{`-₹${discount}`}</div>
+      </div>
+      <div className="flex justify-between text-lg text-gray-700">
+        <div>Platform Fee</div>
+        <div className="font-medium">{`₹${platformFee}`}</div>
+      </div>
+      <div className="flex justify-between text-lg text-gray-700">
+        <div>Shipping Fee</div>
+        <div className="font-medium">{`₹${shippingFee}`}</div>
+      </div>
+    </div>
+    <div className="flex justify-between text-xl font-bold text-gray-800 mt-6">
+      <div>Total Amount</div>
+      <div>{`₹${totalAmount}`}</div>
+    </div>
+    <button className="w-full mt-6 py-3 bg-gradient-to-r from-blue-600 to-blue-500 text-white text-lg font-semibold rounded-xl shadow-md hover:from-blue-700 hover:to-blue-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300">
+      Place Order
+    </button>
+  </div>
+</div>
+
     </div>
   );
 };

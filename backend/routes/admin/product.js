@@ -8,13 +8,14 @@ const uploadImage = require('../../utils/uploadImage');
 
 const storage = multer.memoryStorage()
 const upload = multer({ storage: storage })
+const regex = /^\d+(\.\d+)?$/
 
 const productRouter = express.Router();
 
 const productSchema = z.object({
     productname: z.string().max(15),
-    price: z.any(),
-    discount: z.any(),
+    price: z.string().regex(regex),
+    discount: z.string().regex(regex),
     panelcolor: z.string(),
     bgcolor: z.string(),
     textcolor: z.string()
@@ -25,11 +26,12 @@ productRouter.post('/addProduct',verifyToken,upload.single('productImage') ,asyn
 
     const userId = req.userId;
     const file = req.file;
-    
+    // const price = Number(req.body.price)
+    // const discount = Number(req.body.discount)
     const { 
-        productname,
         price,
         discount,
+        productname,
         panelcolor,
         bgcolor,
         textcolor 

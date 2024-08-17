@@ -46,9 +46,6 @@ const Products = () => {
           key={index}
           title={product.productname}
           price={product.price}
-          panelcolor={product.panelcolor}
-          bgcolor={product.bgcolor}
-          textcolor={product.textcolor}
           imgUrl={product.imageurl}
         />
       ))}

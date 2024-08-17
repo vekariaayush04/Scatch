@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { userData } from "../../atoms/UserAtom";
 import { useRecoilState } from "recoil";
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const NewProduct = () => {
   const [data,setData] = useState({
@@ -22,8 +24,8 @@ const handleSubmit = async (e) => {
   const formData = new FormData();
   formData.append('productImage', data.imageData);
   formData.append('productname', data.productname);
-  formData.append('price', Number(data.price));
-  formData.append('discount', Number(data.discount));
+  formData.append('price', data.price);
+  formData.append('discount', data.discount);
   formData.append('panelcolor', data.panelcolor);
   formData.append('bgcolor', data.bgcolor);
   formData.append('textcolor', data.textcolor);
@@ -35,9 +37,16 @@ const handleSubmit = async (e) => {
         'Content-Type': 'multipart/form-data',
       },
     });
+    const message = await response.data.message
     console.log(response);
+    toast(message,{
+      onClose: () => {
+        window.location.reload();
+      }
+    })
   } catch (error) {
     console.log(error);
+    toast.error(error.message)
   }
 };
 
@@ -61,6 +70,7 @@ const handleSubmit = async (e) => {
             </form>
           </div>
           <div className="m-3">
+          <ToastContainer/>
             <InputBox
               type={"text"}
               color={"slate"}
